@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,9 @@ public class CustomerDetailsService implements UserDetailsService {
     }
 
     public List<SimpleGrantedAuthority> getAuthorities(String value) {
-        return List.of(new SimpleGrantedAuthority(value));
+        var ret=new ArrayList<SimpleGrantedAuthority>();
+        ret.add(new SimpleGrantedAuthority(value));
+        return ret;
     }
 
     public void setLastSeen(String email, String value) {
