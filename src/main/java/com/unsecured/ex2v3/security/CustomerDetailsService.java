@@ -31,7 +31,7 @@ public class CustomerDetailsService implements UserDetailsService {
                 !customer.isBlocked(),
                 !customer.isBlocked(),
                 !customer.isBlocked(),
-                this.getAuthorities("USER"));
+                getAuthorities("USER"));
     }
 
     public List<SimpleGrantedAuthority> getAuthorities(String value) {
