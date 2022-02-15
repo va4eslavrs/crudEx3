@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
     Optional<Customer> findByEmail(String integer);
-
+    @Override
     Optional<Customer> findById(Integer integer);
-
+    @Override
     List<Customer> findAll();
 }
 

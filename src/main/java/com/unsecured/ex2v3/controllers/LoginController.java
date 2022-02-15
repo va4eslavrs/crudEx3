@@ -8,12 +8,12 @@ public class LoginController {
     public LoginController() {
     }
 
-    @GetMapping({"/doLogin"})
+    @GetMapping(value="/doLogin")
     public String toLoginPage() {
         return "loginPage";
     }
 
-    @GetMapping({"/logout"})
+    @GetMapping(value="/logout")
     public String logout() {
         return "/doLogin";
     }
