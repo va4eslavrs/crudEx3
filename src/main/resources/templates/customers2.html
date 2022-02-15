@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script>
+       function selects(){
+                var ele=document.getElementsByName('ids');
+                for(var i=0; i<ele.length; i++){
+                    if(ele[i].type=='checkbox')
+                        ele[i].checked=true;
+                }
+            }
+            function deSelect(){
+                var ele=document.getElementsByName('ids');
+                for(var i=0; i<ele.length; i++){
+                    if(ele[i].type=='checkbox')
+                        ele[i].checked=false;
+
+                }
+            }
+
+
+    </script>
+</head>
+<body>
+<form th:action="@{/wr}" th:object="${customersActionable}" method="post">
+    <div class="table-responsive table-sm ">
+        <table class="table align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>
+                    <input type="button" onclick='selects()' value="Select All"/>
+                    <input type="button" onclick='deSelect()' value="Deselect All"/>
+                </th>
+                <th>
+                    <input type="submit" name="submitButton" value=delete class="btn btn-danger">
+                    <input type="submit" name="submitButton" value=block class="btn btn-primary">
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><a type="link" th:href="@{/logout}" class="btn btn-primary">Logout</a></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>id</th>
+                <th>name</th>
+                <th>status</th>
+                <th>registration date</th>
+                <th>last seen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item: ${customers}">
+                <td><input name="chk" type="checkbox" class="checkbox" th:field="${customersActionable.ids}"
+                           th:value="${item.getId()}"/></td>
+                <td th:text="${item.getId()}"></td>
+                <td th:text="${item.getName()}"></td>
+                <td th:text="${item.isBlocked()}? 'blocked':'active'"></td>
+                <td th:text="${item.getRegistrationDate().toString()}"></td>
+                <td th:text="${item.getLastSeen()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</body>
+</html>
