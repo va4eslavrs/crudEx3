@@ -1,6 +1,5 @@
 package com.unsecured.ex2v3.security;
 
-
 import com.unsecured.ex2v3.models.Customer;
 import com.unsecured.ex2v3.models.repositories.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
