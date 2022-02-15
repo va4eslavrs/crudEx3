@@ -1,6 +1,5 @@
 package com.unsecured.ex2v3.config;
 
-
 import com.unsecured.ex2v3.config.AuthHandlers.CustomLogoutSuccessHandler;
 import com.unsecured.ex2v3.config.AuthHandlers.LoginSuccessHandler;
 import com.unsecured.ex2v3.security.CustomerDetailsService;
@@ -35,10 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-/*                .requiresChannel()                                               //Heroku part
-                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-                .requiresSecure().and()                                          //ends here*/
-
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register", "/user/register", "/register/duplicatedEmail").permitAll()

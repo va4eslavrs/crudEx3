@@ -45,21 +45,36 @@ public class HomeController {
     @PostMapping(value = "/wr")
     public String actionOnCustomers(@ModelAttribute("customerActionable") ArrayWrap customerActionable,
                                     @RequestParam("submitButton") String submitButton) {
-        List<String> list = this.customerRepo.findAllById(customerActionable.toIntegerList())
-                .stream().map(Customer::getEmail).collect(Collectors.toList());
-        list.stream().map(customerDetailsService::loadUserByUsername).forEach((x) -> doWat((User) x));
-
-        this.customerRepo.findAllById(customerActionable.toIntegerList()).forEach((x) -> {
-            x.setBlocked(true);
-            this.customerRepo.save(x);
-        });
-        if (Objects.equals(submitButton, "delete")) {
-            this.customerRepo.deleteAllById(customerActionable.toIntegerList());
+        if (Objects.equals(submitButton, "unblock"))
+            setIsBlockedTo(false, customerActionable.toIntegerList());
+        else {
+            expireUsersSessions(getSelectedEmails(customerActionable.toIntegerList()));
+            setIsBlockedTo(true, customerActionable.toIntegerList());
+            if (Objects.equals(submitButton, "delete"))
+                this.customerRepo.deleteAllById(customerActionable.toIntegerList());
         }
         return "redirect:/home";
     }
 
-    public void doWat(User user) {
+    private List<String> getSelectedEmails(List<Integer> listOfIds) {
+        return this.customerRepo.findAllById(listOfIds)
+                .stream().map(Customer::getEmail).collect(Collectors.toList());
+    }
+
+    private void setIsBlockedTo(boolean value, List<Integer> ids) {
+        this.customerRepo.findAllById(ids).forEach((x) -> {
+            if (!x.isBlocked() == value) {
+                x.setBlocked(value);
+                this.customerRepo.save(x);
+            }
+        });
+    }
+
+    private void expireUsersSessions(List<String> emails) {
+        emails.stream().map(customerDetailsService::loadUserByUsername).forEach((x) -> expireUserSession((User) x));
+    }
+
+    private void expireUserSession(User user) {
         List<SessionInformation> sessions = this.sessionRegistry.getAllSessions(user, false);
         sessions.forEach(SessionInformation::expireNow);
     }

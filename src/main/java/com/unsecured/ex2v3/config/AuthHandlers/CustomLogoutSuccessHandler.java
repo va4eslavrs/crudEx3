@@ -1,6 +1,5 @@
 package com.unsecured.ex2v3.config.AuthHandlers;
 
-
 import com.unsecured.ex2v3.security.CustomerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

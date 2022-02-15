@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 @Data
 public class ArrayWrap {
-    public String operation;
     public List<String> ids = new ArrayList();
 
     public List<Integer> toIntegerList() {
