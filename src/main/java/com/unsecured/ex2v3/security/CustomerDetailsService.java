@@ -34,7 +34,7 @@ public class CustomerDetailsService implements UserDetailsService {
     }
 
     public List<SimpleGrantedAuthority> getAuthorities(String value) {
-        var ret=new ArrayList<SimpleGrantedAuthority>();
+        List<SimpleGrantedAuthority> ret=new ArrayList<>();
         ret.add(new SimpleGrantedAuthority(value));
         return ret;
     }
