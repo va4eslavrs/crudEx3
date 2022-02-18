@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Customer {
     @Id
+    @OneToMany(targetEntity = ChatRoom.class, mappedBy = "")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;

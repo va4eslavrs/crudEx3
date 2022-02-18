@@ -21,7 +21,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    public String charRoomId;
+    @ManyToOne
+    public ChatRoom chatRoomName;
     public String senderEmail;
     public String recipientEmail;
     public String message;
