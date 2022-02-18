@@ -17,9 +17,16 @@ public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    public Integer id;
     @Column(name = "name", unique = true, nullable = false)
-    private String name;
+    public String name;
     @OneToMany(mappedBy = "id")
     public List<Message> messages;
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    public Customer sender;
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
+    public Customer recipient;
+
 }
