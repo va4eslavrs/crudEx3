@@ -22,11 +22,7 @@ public class ChatRoom {
     public String name;
     @OneToMany(mappedBy = "id")
     public List<Message> messages;
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    public Customer sender;
-    @ManyToOne
-    @JoinColumn(name = "recipient_id")
-    public Customer recipient;
+    @OneToOne
+    public CustomersPair customersPair;
 
 }
